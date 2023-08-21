@@ -182,3 +182,44 @@ def game_dict():
             ]
         }
     }
+
+player_list = game_dict()["home"]["players"] + game_dict()["away"]["players"]
+team_list = ["home", "away"]
+
+def num_points_per_game(player_name):
+    return [player["points_per_game"] for player in player_list if player["name"]==player_name][0]
+
+def player_age(player_name):
+    return [player["age"] for player in player_list if player["name"]==player_name][0]
+
+def team_colors(team_name):
+    return [game_dict()[team]["colors"] for team in team_list if game_dict()[team]["team_name"]==team_name][0]
+    pass
+
+def team_names():
+    return [team["team_name"] for key, team in game_dict().items()]
+    pass
+
+def player_numbers(team_name):
+    team = [team for key, team in game_dict().items() if team["team_name"] == team_name][0]
+    return [player["number"] for player in team["players"]]
+    pass
+
+def player_stats(player_name):
+    for player in player_list:
+        if player["name"] == player_name:
+            return player
+
+def average_rebounds_by_shoe_brand():
+    shoe_brands = set(player["shoe_brand"] for player in player_list)
+    for shoe_brand in shoe_brands:
+        total = 0
+        count = 0
+        for player in player_list:
+            if player.get("shoe_brand") == shoe_brand:
+                total += player.get("rebounds_per_game")
+                count += 1
+        average = format(total/count, ".2f")
+        print(f"{shoe_brand}:  {average}")
+
+    pass
