@@ -211,7 +211,10 @@ def player_stats(player_name):
             return player
 
 def average_rebounds_by_shoe_brand():
-    shoe_brands = set(player["shoe_brand"] for player in player_list)
+    shoe_brands = []
+    for player in player_list:
+        if not player["shoe_brand"] in shoe_brands:
+            shoe_brands.append(player["shoe_brand"])
     for shoe_brand in shoe_brands:
         total = 0
         count = 0
